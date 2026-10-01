@@ -70,6 +70,7 @@
 
     <script>
         // 如果要把上面結構塞進append，不能換行，要用一行來寫
+        // 用style來引入css
         Food.forEach(function (item) {
             $("#foodlist").append('<div class="demo"><div class="logo bg-img" style="background-image: url('+item.PicURL+');"></div><p class="font-02 zom fw700">店家:'+item.Name+'</p><p class="font-02 zom fw400">電話:'+item.Tel+'</p></div>');
         });
