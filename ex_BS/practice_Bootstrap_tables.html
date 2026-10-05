@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bootstrap - Table</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/allcss.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/allcss.css">
 
     <style>
         @media screen and (max-width: 768px) {
@@ -32,7 +32,10 @@
                 font-weight: 700;
                 color: var(--brown);
                 font-size: 20px;
+                /* block非元素堆疊的必需，但有助於思考 */
                 display: block;
+                /* 讓元素往左浮，並且可以跟其他浮動元素並排(本身自帶block的特質） */
+                /* 是元素堆疊的關鍵 */
                 float: left;
                 width: 30%;
                 text-align: right;
@@ -40,6 +43,7 @@
             }
 
             .table-rwd tbody tr td span{
+                /* block非元素堆疊的必需，但有助於思考 */
                 display: block;
                 float: left;
                 width: 70%;
@@ -147,8 +151,8 @@
             </tbody>
         </table>
     </div>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-4.0.0.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/jquery-4.0.0.js"></script>
 </body>
 
 </html>
