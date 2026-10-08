@@ -1,0 +1,124 @@
+{
+    "travelfood": [
+        {
+            "ID": "01",
+            "Name": "詹記麻辣火鍋 敦南店",
+            "Address": "和平東路三段60號1樓",
+            "Tel": "02-2377-7799",
+            "HostWords": "台北知名老字號麻辣火鍋，以香麻濃郁的麻辣湯底與復古風格聞名。鴨血、豆腐吸附湯汁後十分入味，搭配牛肉、丸餃與老油條，是許多麻辣鍋愛好者的人氣選擇。",
+            "City": "台北市",
+            "Town": "大安區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "02",
+            "Name": "無老鍋 台北中山店",
+            "Address": "中山北路二段36-1號",
+            "Tel": "02-2581-6238",
+            "HostWords": "以養生湯頭與麻辣鍋聞名的火鍋品牌，招牌冰淇淋豆腐口感細緻，白湯溫潤、麻辣湯香氣十足。適合喜歡鴛鴦鍋以及多人聚餐的客人。",
+            "City": "台北市",
+            "Town": "中山區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "03",
+            "Name": "鼎王麻辣鍋 公益店",
+            "Address": "公益路二段42號",
+            "Tel": "04-2326-1718",
+            "HostWords": "台中經典麻辣鍋代表之一，以麻辣鴨血、豆腐及濃郁湯底受到歡迎。除了麻辣鍋之外，也可搭配酸菜白肉鍋形成鴛鴦鍋，是台中聚餐火鍋的代表店家。",
+            "City": "台中市",
+            "Town": "南屯區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "04",
+            "Name": "輕井澤鍋物 公益店",
+            "Address": "公益路276號",
+            "Tel": "04-2327-4747",
+            "HostWords": "台中相當具代表性的個人鍋物餐廳，以寬敞雅緻的用餐環境與親民價格受到歡迎。提供多種肉品、海鮮與湯底，適合朋友聚餐與日常用餐。",
+            "City": "台中市",
+            "Town": "西區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "05",
+            "Name": "老四川巴蜀麻辣燙 台中公益店",
+            "Address": "公益路343號",
+            "Tel": "04-2319-8789",
+            "HostWords": "主打川味麻辣鍋，麻、辣、香氣層次鮮明，也提供較溫和的白味鍋。搭配肉片、豆腐、鴨血及火鍋料，是喜歡重口味麻辣鍋的熱門選擇。",
+            "City": "台中市",
+            "Town": "西區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "06",
+            "Name": "這一鍋 皇室秘藏鍋物 台中朝富殿",
+            "Address": "朝富路36號",
+            "Tel": "04-3609-0088",
+            "HostWords": "以宮廷風格空間與特色麻辣鍋著稱，提供多種肉品、丸類與特色鍋底。店內氣氛華麗，適合多人聚餐、慶生或想體驗特色用餐環境的客人。",
+            "City": "台中市",
+            "Town": "西屯區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "07",
+            "Name": "忻殿堂火鍋 Xin HOT POT",
+            "Address": "敦化南路一段160巷12號",
+            "Tel": "",
+            "HostWords": "台北人氣精緻火鍋餐廳，主打高品質肉品與海鮮，搭配講究的湯底與食材。整體用餐風格偏精緻，適合聚餐、約會以及喜歡高品質鍋物的客人。",
+            "City": "台北市",
+            "Town": "大安區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "08",
+            "Name": "初衷小鹿 Deer's Hotpot Bistro",
+            "Address": "忠孝東路四段553巷6弄15號",
+            "Tel": "",
+            "HostWords": "結合精緻鍋物與餐酒館風格的特色火鍋餐廳，提供肉品、海鮮與多樣湯底。環境較具設計感，適合約會或想要體驗不同於傳統火鍋店氣氛的客人。",
+            "City": "台北市",
+            "Town": "信義區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "09",
+            "Name": "樂釜 Love Hot Pot 極上鍋物 芝山店",
+            "Address": "福國路42號",
+            "Tel": "",
+            "HostWords": "以精緻個人鍋物為主，提供多種肉品、海鮮與特色湯頭。餐點擺盤與食材品質受到不少鍋物愛好者喜愛，適合希望安靜享用火鍋的客人。",
+            "City": "台北市",
+            "Town": "士林區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        },
+        {
+            "ID": "10",
+            "Name": "秀花・鍋 Showhua Hot Pot",
+            "Address": "延吉街30巷15之1號",
+            "Tel": "",
+            "HostWords": "台北精緻鍋物餐廳，強調肉品與海鮮品質，搭配細緻的湯底與舒適用餐環境。整體定位較精緻，適合約會、聚餐以及想品嚐高品質鍋物的客人。",
+            "City": "台北市",
+            "Town": "松山區",
+            "PicURL": "https://images.unsplash.com/photo-1754663761389-e96d553aff81?auto=format&fit=crop&w=900&q=80",
+            "Latitude": "",
+            "Longitude": ""
+        }
+    ]
+}
