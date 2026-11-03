@@ -3,152 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="程式學習紀錄與作品展示，包含 HTML、CSS、JavaScript、Bootstrap 等練習與實作。">
-    <title>程式學習與作品集｜Code & Coffee</title>
-    <!-- 保留原始 CSS 路徑；請將 allcss_updated.css 更名為 css/allcss.css 並覆蓋原檔 -->
+    <meta name="description" content="學習成果：整理 HTML、CSS、JavaScript、Bootstrap 等程式練習與作品。">
+    <title>學習成果</title>
     <link rel="stylesheet" href="css/allcss.css">
 </head>
-<body class="coffee-home">
-    <header class="coffee-header">
-        <div class="coffee-container coffee-header-inner">
-            <a class="coffee-brand" href="index.html">☕ Code & Coffee</a>
-            <nav class="coffee-nav" aria-label="主要導覽">
-                <a href="#learning">學習紀錄</a>
-                <a href="#works">作品展示</a>
+<body class="learning-home">
+    <header class="learning-header">
+        <div class="learning-container learning-header-inner">
+            <a class="learning-brand" href="index.html">學習成果</a>
+            <nav class="learning-nav" aria-label="內容分類">
+                <a href="#learning" class="is-active">學習</a>
+                <a href="#works">作品</a>
             </nav>
         </div>
     </header>
 
-    <div class="coffee-hero coffee-container">
-        <p class="coffee-eyebrow">MY CODING JOURNEY</p>
-        <h1>程式學習與作品集</h1>
-        <p>一點一滴累積技術，記錄每一次練習與創作。從前端排版、JavaScript 到實際網頁作品，都收藏在這裡。</p>
+    <div class="learning-intro learning-container">
+        <h1>學習成果</h1>
+        <p>記錄程式學習過程，整理練習與實作成果。</p>
     </div>
 
-    <main class="coffee-container coffee-main">
-        <section class="coffee-section" id="learning" aria-labelledby="learning-title">
-            <div class="coffee-section-heading">
-                <h2 id="learning-title">01. 學習</h2>
-                <p>LEARNING NOTES <span id="learning-count"></span></p>
+    <main class="learning-main learning-container">
+        <section class="learning-section" id="learning" aria-labelledby="learning-title">
+            <div class="learning-section-head">
+                <h2 id="learning-title">學習</h2>
+                <span class="learning-count" id="learning-count"></span>
             </div>
-            <div class="coffee-grid" id="learning-list" aria-live="polite"></div>
+            <div class="learning-grid" id="learning-list"></div>
         </section>
-
-        <section class="coffee-section" id="works" aria-labelledby="works-title">
-            <div class="coffee-section-heading">
-                <h2 id="works-title">02. 作品</h2>
-                <p>PROJECTS <span id="works-count"></span></p>
+        <section class="learning-section" id="works" aria-labelledby="works-title">
+            <div class="learning-section-head">
+                <h2 id="works-title">作品</h2>
+                <span class="learning-count" id="works-count"></span>
             </div>
-            <div class="coffee-grid" id="works-list" aria-live="polite"></div>
+            <div class="learning-grid" id="works-list"></div>
         </section>
     </main>
 
-    <footer class="coffee-footer">
-        <div class="coffee-container"><p>© 2026 · Code & Coffee · 持續學習、持續創作</p></div>
-    </footer>
+    <footer class="learning-footer"><p>學習成果 · 持續學習與創作</p></footer>
 
-    <!-- 保留原始 JS 路徑與引用順序 -->
+    <!-- 依照原始 index.html 的路徑及順序引用 -->
     <script src="js/jquery-4.0.0.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script>
         $(function () {
-            // 技術分類對應的簡單封面圖示，沒有縮圖檔案也能呈現一致的排版。
-            const topicIcons = {
-                "HTML+CSS": "✦",
-                "JavaScript": "⌘",
-                "Bootstrap": "▦"
-            };
+            // 只允許站內相對路徑，避免 JSON 的 URL 被解讀成腳本或外部連結。
+            function safePath(value) {
+                const path = typeof value === "string" ? value.trim() : "";
+                if (!path || /^(?:[a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(path) || /[\\\x00-\x1f]/.test(path) || path.split("/").includes("..")) return "";
+                return path;
+            }
 
-            // YYYYMMDD 顯示成 YYYY.MM.DD；資料不合法時顯示原字串。
             function formatDate(value) {
-                const raw = String(value || "");
-                if (/^\d{8}$/.test(raw)) {
-                    return raw.slice(0, 4) + "." + raw.slice(4, 6) + "." + raw.slice(6, 8);
-                }
-                return raw;
+                const raw = String(value ?? "").trim();
+                if (!raw) return "（未提供日期）";
+                return /^\d{8}$/.test(raw) ? raw.slice(0, 4) + "." + raw.slice(4, 6) + "." + raw.slice(6, 8) : raw;
             }
 
-            // 避免使用者資料或 JSON 字串被當作 HTML 執行，文字一律透過 .text() 填入。
             function makeCard(item) {
-                const title = String(item.title || "未命名項目");
-                const topic = String(item.category || "其他");
-                const description = String(item.note || "這項紀錄尚未提供簡介。");
-                const status = String(item.status || "");
-                const url = String(item.url || "");
+                const title = String(item.title || "").trim() || "未命名成品";
+                const category = String(item.category || "").trim();
+                const note = String(item.note || "").trim();
+                const url = safePath(item.url);
+                const related = safePath(item.related);
+                const image = safePath(item.image);
 
-                const $card = $("<article>").addClass("coffee-card");
-                const $art = $("<div>").addClass("coffee-card-art").attr("data-topic", topic);
-                $art.append($("<span>").attr("aria-hidden", "true").text(topicIcons[topic] || "✎"));
-
-                const $content = $("<div>").addClass("coffee-card-content");
-                const $top = $("<div>").addClass("coffee-card-top");
-                $top.append($("<span>").addClass("coffee-tag").attr("data-topic", topic).text(topic));
-                if (status) {
-                    $top.append($("<span>").addClass("coffee-status").text("・" + status));
+                const $card = $("<article>").addClass("learning-card");
+                const $cover = $("<div>").addClass("learning-cover").attr("data-topic", category);
+                if (image) {
+                    const $img = $("<img>").attr({ src: image, alt: title + "預覽圖片", loading: "lazy" });
+                    $img.on("error", function () {
+                        $(this).replaceWith($("<span>").addClass("learning-cover-placeholder").attr("aria-hidden", "true"));
+                    });
+                    $cover.append($img);
+                } else {
+                    $cover.append($("<span>").addClass("learning-cover-placeholder").attr("aria-hidden", "true"));
                 }
 
-                $content.append($top);
-                $content.append($("<h3>").text(title));
-                $content.append($("<p>").addClass("coffee-card-description").text(description));
-
-                const $bottom = $("<div>").addClass("coffee-card-bottom");
-                $bottom.append($("<span>").addClass("coffee-date").text(formatDate(item.date)));
-
-                // 連結來自自己的 JSON；限制為站內相對路徑，不接受外站與 javascript: URL。
-                if (url && !/^(?:[a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(url) && !url.includes("\\")) {
-                    $bottom.append(
-                        $("<a>")
-                            .addClass("coffee-card-link")
-                            .attr({ href: url, target: "_blank", rel: "noopener noreferrer" })
-                            .text("查看成品 ↗")
-                    );
+                const $info = $("<div>").addClass("learning-card-info");
+                $info.append($("<h3>").text(title));
+                const $details = $("<div>").addClass("learning-card-details");
+                $details.append($("<p>").addClass("learning-card-description" + (note ? "" : " learning-muted")).text(note || "（無文字說明）"));
+                const date = String(item.date ?? "").trim();
+                $details.append($("<p>").addClass("learning-card-date" + (date ? "" : " learning-muted")).text(formatDate(date)));
+                if (related && related !== url) {
+                    const label = item.class === "學習" ? "查看延伸作品 ↗" : "查看原始練習 ↗";
+                    // 第二個連結獨立於覆蓋全卡的主連結，不會誤開兩個頁面。
+                    $details.append($("<a>").addClass("learning-related").attr({ href: related, target: "_blank", rel: "noopener noreferrer" }).text(label));
                 }
-                $content.append($bottom);
-                return $card.append($art, $content);
+                $info.append($details);
+                $card.append($cover, $info);
+                if (url) {
+                    $card.addClass("has-link");
+                    $card.append($("<a>").addClass("learning-card-link").attr({ href: url, target: "_blank", rel: "noopener noreferrer", "aria-label": "開啟「" + title + "」" }));
+                } else {
+                    $details.append($("<span>").addClass("learning-card-date learning-muted").text("（尚無連結）"));
+                }
+                return $card;
             }
 
-            function renderItems(items, container, countId) {
-                const $container = $(container).empty();
-                $(countId).text("· " + items.length + " 項");
-                if (items.length === 0) {
-                    $container.append($("<p>").addClass("coffee-message").text("這個分類目前還沒有紀錄。"));
+            function renderItems(items, target, countTarget) {
+                const $target = $(target).empty();
+                $(countTarget).text(items.length + " 項");
+                if (!items.length) {
+                    $target.append($("<p>").addClass("learning-message").text("目前沒有內容。"));
                     return;
                 }
-                items.forEach(function (item) {
-                    $container.append(makeCard(item));
-                });
+                items.forEach(function (item) { $target.append(makeCard(item)); });
             }
 
-            // 從 JSON 取得資料，依 class 分成「學習」與「作品」，每組日期由新到舊。
             $.ajax({
                 type: "GET",
                 url: "index_content.json",
                 dataType: "json",
                 cache: false,
                 success: function (data) {
-                    if (!data || !Array.isArray(data.projects)) {
-                        showLoadError();
-                        return;
-                    }
-                    const projects = data.projects.slice();
-                    const newestFirst = function (a, b) {
-                        return String(b.date || "").localeCompare(String(a.date || ""));
-                    };
-                    const learning = projects.filter(item => item.class === "學習").sort(newestFirst);
-                    const works = projects.filter(item => item.class === "作品").sort(newestFirst);
-                    renderItems(learning, "#learning-list", "#learning-count");
-                    renderItems(works, "#works-list", "#works-count");
+                    if (!data || !Array.isArray(data.projects)) { showError(); return; }
+                    const byDate = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
+                    renderItems(data.projects.filter(x => x.class === "學習").sort(byDate), "#learning-list", "#learning-count");
+                    renderItems(data.projects.filter(x => x.class === "作品").sort(byDate), "#works-list", "#works-count");
                 },
-                error: showLoadError
+                error: showError
             });
 
-            function showLoadError() {
-                const message = "資料載入失敗。請確認 index_content.json 與 index.html 放在同一層，並透過 Live Server 或 GitHub Pages 開啟。";
+            function showError() {
                 $("#learning-list, #works-list").empty().append(
-                    $("<p>").addClass("coffee-message").text(message)
+                    $("<p>").addClass("learning-message").text("無法讀取 index_content.json。請檢查檔案位置，並透過 Live Server 或 GitHub Pages 開啟。")
                 );
                 $("#learning-count, #works-count").empty();
             }
+
+            // 捲動或點擊分類時，突顯目前所在區塊。
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            $(".learning-nav a").removeClass("is-active");
+                            $(".learning-nav a[href='#" + entry.target.id + "']").addClass("is-active");
+                        }
+                    });
+                }, { rootMargin: "-20% 0px -55% 0px" });
+                document.querySelectorAll(".learning-section").forEach(section => observer.observe(section));
+            }
+            $(".learning-nav a").on("click", function () {
+                $(".learning-nav a").removeClass("is-active");
+                $(this).addClass("is-active");
+            });
         });
     </script>
 </body>
