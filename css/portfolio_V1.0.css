@@ -226,13 +226,13 @@ main section {
     background-repeat: no-repeat;
 }
 .portfolio-hero .hero-slide-1 .hero-image {
-    background-image: url("../images/carousel-1.avif");
+    background-image: url("../image/carousel-1.avif");
 }
 .portfolio-hero .hero-slide-2 .hero-image {
-    background-image: url("../images/carousel-2.avif");
+    background-image: url("../image/carousel-2.avif");
 }
 .portfolio-hero .hero-slide-3 .hero-image {
-    background-image: url("../images/carousel-3.avif");
+    background-image: url("../image/carousel-3.avif");
 }
 .portfolio-hero .hero-overlay {
     position: absolute;
