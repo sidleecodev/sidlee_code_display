@@ -99,7 +99,7 @@ $(function () {
 
                 let link = $('<a class="projects-result-link"></a>');
 
-                link.text("查看作品 ↗");
+                link.text("查看成品 ↗");
 
                 link.attr("href", item.url);
                 link.attr("target", "_blank");
