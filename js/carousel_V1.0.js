@@ -5,10 +5,11 @@ $(function () {
     // 1. 設定檔案路徑
     // ========================================
 
-    // 正式首頁 index.html 位於專案根目錄
-    const rootPath = "./JSON/";
+    // JSON 存放位置
+    const jsonPath = "./JSON/carousel.json";
 
-    const jsonPath = rootPath + "carousel.json";
+    // 正式首頁 index.html 位於專案根目錄
+    const rootPath = "./";
 
     const carouselElement = document.querySelector("#workCarousel");
 
@@ -235,7 +236,7 @@ $(function () {
 
                     workSlide.append(img);
 
-                // 影片
+                    // 影片
                 } else if (item.type === "video") {
 
                     let video = $("<video></video>");
