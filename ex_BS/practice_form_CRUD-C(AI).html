@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品建檔 | Vice Market ERP</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/allcss.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <style>
+        /* Vice Market：統一夜城商城色彩 */
+        :root {
+            --page: #10111c;
+            --panel: #191b2a;
+            --raised: #222437;
+            --line: #383b51;
+            --ink: #f4f1f8;
+            --muted: #aeb4cb;
+            --pink: #ff86b9;
+            --cyan: #65e5dd;
+            --orange: #ffc18b;
+            --danger: #ff8e9d;
+        }
+        body { background: var(--page); color: var(--ink); font-family: system-ui, "Microsoft JhengHei", sans-serif; min-height: 100vh; }
+        .navbar { background: #151626; border-bottom: 1px solid var(--line); padding: 14px 0; }
+        .navbar .container-fluid { max-width: 1440px; padding-inline: 24px; }
+        .navbar-brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: 1px; }
+        .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 10px; color: #191222; background: linear-gradient(135deg,var(--pink),var(--orange)); font-size: 22px; }
+        .brand-sub { display: block; color: var(--muted); font-size: 10px; letter-spacing: 2px; font-weight: 600; }
+        .navbar .nav-link { color: var(--muted); padding: 10px 16px !important; border-radius: 7px; font-size: 14px; }
+        .navbar .nav-link.active, .navbar .nav-link:hover { background: var(--raised); color: var(--pink); }
+        .edition { color: var(--cyan); font-size: 12px; letter-spacing: 1px; }
+        .workspace { max-width: 1440px; padding: 26px 24px 48px; margin: auto; }
+        .breadcrumb { --bs-breadcrumb-divider-color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+        .breadcrumb a { color: var(--muted); text-decoration: none; }
+        .breadcrumb-item.active { color: var(--pink); }
+        .hero { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; background: linear-gradient(110deg,#232039 0%,#2d203a 60%,#482c40 100%); }
+        .hero::after { content: "VI"; position: absolute; right: 25px; top: -38px; font-size: 160px; font-weight: 950; font-style: italic; color: #ffffff09; pointer-events: none; }
+        .eyebrow { color: var(--orange); font-size: 11px; letter-spacing: 2.5px; font-weight: 800; }
+        .hero h1 { font-size: clamp(1.65rem,3vw,2.35rem); font-weight: 800; margin: 8px 0; }
+        .hero p, .subtle { color: var(--muted); font-size: 14px; margin-bottom: 0; }
+        .card, .modal-content { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 28px #0002; }
+        .card-header, .card-footer, .modal-header, .modal-footer { background: transparent; border-color: var(--line); padding: 18px 22px; }
+        .card-body, .modal-body { padding: 22px; }
+        .section-title { font-size: 17px; font-weight: 750; margin: 0; }
+        .section-title i { color: var(--cyan); margin-right: 8px; }
+        .metric { padding: 20px; height: 100%; }
+        .metric-label { color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 8px; }
+        .metric-label i { color: var(--pink); }
+        .metric-value { font-size: clamp(1.35rem,2.5vw,2rem); font-weight: 800; margin-top: 10px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+        .metric small { color: var(--muted); font-size: 11px; }
+        .table { --bs-table-bg: transparent; --bs-table-color: var(--ink); --bs-table-border-color: var(--line); --bs-table-hover-bg: #272a3d; --bs-table-hover-color: var(--ink); color: var(--ink); margin: 0; }
+        .table th { background: var(--raised); color: var(--muted); font-size: 12px; font-weight: 700; white-space: nowrap; padding: 14px 16px; }
+        .table td { vertical-align: middle; padding: 16px; font-size: 14px; overflow-wrap: anywhere; }
+        .table td:first-child { font-weight: 700; }
+        .money { color: var(--cyan); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .badge { font-size: 12px; font-weight: 650; padding: 7px 10px; border-radius: 6px; white-space: normal; }
+        .cat-snack { color: #ffc18b; background: #513827; }
+        .cat-drink { color: #8cdbff; background: #243e59; }
+        .cat-dairy { color: #d4b5ff; background: #403157; }
+        .cat-bakery { color: #ffb6d5; background: #512d43; }
+        .cat-other { color: var(--muted); background: var(--raised); }
+        .stock-ok { color: var(--cyan); background: #203f40; }
+        .stock-low { color: var(--orange); background: #4a3529; }
+        .stock-empty { color: var(--danger); background: #502c3b; }
+        .stock-label { display: block; font-size: 11px; margin-top: 5px; }
+        .actions { display: flex; gap: 7px; justify-content: flex-end; flex-wrap: wrap; }
+        .btn { border-radius: 7px; font-weight: 650; transition: background-color .18s, color .18s, border-color .18s; }
+        .btn-primary, .btn-success { background: var(--cyan); border-color: var(--cyan); color: #102728; }
+        .btn-primary:hover, .btn-success:hover, .btn-primary:focus-visible, .btn-success:focus-visible { background: #a1fff4; border-color: #a1fff4; color: #102728; }
+        .btn-warning { background: #302d43; border-color: #5b4c68; color: var(--pink); }
+        .btn-warning:hover { background: var(--pink); border-color: var(--pink); color: #211525; }
+        .btn-danger { background: #392532; border-color: #663849; color: var(--danger); }
+        .btn-danger:hover { background: var(--danger); border-color: var(--danger); color: #26151b; }
+        .btn-secondary, .btn-outline-secondary { background: transparent; border-color: var(--line); color: var(--muted); }
+        .btn-secondary:hover, .btn-outline-secondary:hover { background: var(--raised); color: var(--ink); border-color: var(--muted); }
+        .btn-close { filter: invert(1) grayscale(1); }
+        .form-label { color: var(--ink); font-size: 14px; font-weight: 650; }
+        .form-control, .form-select { background-color: #121421; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; font-size: 15px; color-scheme: dark; }
+        .form-control::placeholder { color: #8990a8; }
+        .form-control:focus, .form-select:focus { background-color: #151827; color: var(--ink); border-color: var(--cyan); box-shadow: 0 0 0 3px #65e5dd20; }
+        .form-floating > label { color: var(--muted); }
+        .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label { color: var(--muted); }
+        .form-floating > label::after { background: transparent !important; }
+        .form-control:disabled, .form-select:disabled { background: var(--raised); color: var(--muted); opacity: 1; }
+        .form-select { --bs-form-select-bg-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23aeb4cb' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E"); }
+        .form-range::-webkit-slider-thumb { background: var(--cyan); }
+        .form-range::-moz-range-thumb { background: var(--cyan); }
+        .form-range::-webkit-slider-runnable-track { background: var(--line); }
+        .form-range::-moz-range-track { background: var(--line); }
+        #num-text { color: var(--cyan) !important; font-weight: 800; font-variant-numeric: tabular-nums; }
+        .valid-feedback { color: var(--cyan); } .invalid-feedback { color: var(--danger); }
+        .form-control.is-valid, .form-select.is-valid { border-color: var(--cyan); }
+        .form-control.is-invalid { border-color: var(--danger); }
+        .field-note { color: var(--muted); font-size: 12px; }
+        .field-block { padding: 16px; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
+        .field-block h6 { color: var(--orange); font-size: 12px; letter-spacing: 1px; margin-bottom: 16px; }
+        .pagination { gap: 5px; flex-wrap: wrap; margin: 0; }
+        .page-link { background: var(--raised); color: var(--ink); border: 1px solid var(--line); border-radius: 6px !important; }
+        .page-link:hover, .page-item.active .page-link { background: var(--pink); color: #241626; border-color: var(--pink); }
+        .page-link:focus { box-shadow: 0 0 0 3px #ff86b933; }
+        .swal2-popup { background: var(--panel) !important; color: var(--ink) !important; border: 1px solid var(--line); }
+        .swal2-title, .swal2-html-container { color: var(--ink) !important; }
+        .swal2-confirm { background: var(--cyan) !important; color: #102728 !important; }
+        .swal2-deny, .swal2-cancel { background: var(--raised) !important; color: var(--ink) !important; }
+        .footer-note { color: var(--muted); font-size: 12px; padding-top: 24px; }
+        #showmsg:not(.d-none) { animation: appear .25s ease-out; }
+        @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .review-row { padding: 12px 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+        .review-row b { color: var(--muted); display: inline-block; min-width: 90px; font-size: 13px; }
+        @media (min-width: 768px) and (max-width: 1100px) { .table th,.table td { padding: 12px 9px; } .actions { flex-direction: column; } }
+        @media (max-width: 767.98px) {
+            .workspace { padding: 18px 14px 32px; } .hero { padding: 22px 18px; }
+            .card-body,.card-header,.card-footer { padding: 16px; }
+            .table-rwd thead { display: none; }
+            .table-rwd tbody tr { display: block; background: var(--raised); border: 1px solid var(--line); border-radius: 9px; margin-bottom: 12px; overflow: hidden; }
+            .table-rwd tbody td { display: grid; grid-template-columns: 34% minmax(0,1fr); gap: 12px; padding: 12px; border: 0; border-bottom: 1px solid var(--line); }
+            .table-rwd tbody td:last-child { border-bottom: 0; }
+            .table-rwd tbody td::before { content: attr(data-th); color: var(--muted); font-size: 12px; font-weight: 600; align-self: center; }
+            .table-rwd tbody td.empty-cell { display: block; text-align: center; } .table-rwd tbody td.empty-cell::before { display: none; }
+            .actions { justify-content: flex-start; } .metric { padding: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+<body>
+    <!-- 原有 Navbar 導覽；未實作搜尋不顯示 -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="practice_form_CRUD-R(AI).html"><span class="brand-mark">V</span><span>VICE MARKET<span class="brand-sub">INVENTORY / ERP</span></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="展開導覽"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto ms-lg-4 gap-1">
+                    <li class="nav-item"><a class="nav-link active" href="practice_form_CRUD-C(AI).html" aria-current="page"><i class="fa-solid fa-square-plus me-2"></i>產品建檔</a></li>
+                    <li class="nav-item"><a class="nav-link " href="practice_form_CRUD-R(AI).html" ><i class="fa-solid fa-boxes-stacked me-2"></i>產品列表</a></li>
+                </ul>
+                <span class="edition d-inline-block my-2"><i class="fa-solid fa-gamepad me-2"></i>VICE CITY / FAN PROJECT</span>
+            </div>
+        </div>
+    </nav>
+    <main class="workspace">
+        <nav aria-label="麵包屑"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="practice_form_CRUD-R(AI).html">商城管理</a></li><li class="breadcrumb-item active" aria-current="page">產品主檔新增</li></ol></nav>
+        <header class="hero"><div class="eyebrow">VICE CITY / PRODUCT ONBOARDING</div><h1>產品主檔新增</h1><p>建立商城商品，確認基本資料後寫入庫存系統。</p></header>
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-7">
+                <section class="card">
+                    <div class="card-header"><h2 class="section-title"><i class="fa-solid fa-box"></i>商品基本資料</h2><p class="subtle mt-2">所有欄位皆須填寫</p></div>
+                    <div class="card-body">
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control form-control-lg" placeholder="產品名稱" id="product-name">
+                            <label for="product-name" class="form-label">產品名稱(字數2~6字)</label>
+                            <div class="valid-feedback">符合規定</div>
+                            <div class="invalid-feedback">不符合規定</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label">價格（GTA$，1～100）</label>
+                            <input type="number" class="form-control form-control-lg" id="price" min="1" max="100"
+                                value="50">
+                            <div class="valid-feedback">符合規定</div>
+                            <div class="invalid-feedback">不符合規定</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="num" class="form-label">數量: <span class="h3 text-danger "
+                                    id="num-text">50</span>個</label>
+                            <input type="range" class="form-range" min="1" max="100" step="1" value="50" id="num">
+                            <div class="d-flex justify-content-between mt-0">
+                                <span class="fw500">1</span>
+                                <span class="fw500">100</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category" class="form-label">產品分類</label>
+                            <select name="" id="category" class="form-select form-select-lg">
+                                <option value="" class="text-center" disabled selected>---產品分類---</option>
+                                <option value="街頭服飾">街頭服飾</option>
+                                <option value="車輛配件">車輛配件</option>
+                                <option value="日常補給">日常補給</option>
+                                <option value="電子裝備">電子裝備</option>
+                            </select>
+                            <div class="valid-feedback">已選擇分類</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="remark" class="form-label">備註</label>
+                            <textarea id="remark" class="form-control" rows="3" placeholder="產品須注意的事項，字數2~10字"></textarea>
+                            <div class="valid-feedback">符合規定</div>
+                            <div class="invalid-feedback">不符合規定</div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end"><button class="btn btn-primary" id="ok-btn"><i class="fa-solid fa-check me-2"></i>確認資料</button></div>
+                </section>
+            </div>
+            <div class="col-lg-5">
+                <section class="card mb-3"><div class="card-header"><h2 class="section-title"><i class="fa-solid fa-route"></i>建檔流程</h2></div><div class="card-body"><p>01　填寫商品資料</p><p>02　檢查欄位與預覽</p><p class="mb-0">03　確認送出至 API</p></div></section>
+                <section class="card d-none" id="showmsg"></section>
+            </div>
+        </div>
+        <footer class="footer-note">VICE MARKET ERP · GTA VI 靈感之非官方教學專案</footer>
+    </main>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/jquery-4.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        let flag_productName = false;
+        let flag_price = true;
+        let flag_category = false;
+        let flag_remark = false;
+        $(function () {
+            // 產品名稱
+            $("#product-name").on("change", function () {
+                if ($(this).val().length > 1 && $(this).val().length < 7) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_productName = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_productName = false;
+                }
+            })
+
+            // 價格
+            $("#price").on("change", function () {
+                if ($(this).val() > 0 && $(this).val() < 101) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_price = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_price = false;
+                }
+            })
+
+
+            // 數量
+            $("#num").on("input", function () {
+                $("#num-text").text($(this).val());
+            })
+
+            // 分類
+            $("#category").on("change", function () {
+                $(this).addClass("is-valid");
+                flag_category = true;
+            })
+
+            // 產品備註
+            $("#remark").on("change", function () {
+                if ($(this).val().length > 1 && $(this).val().length < 11) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_remark = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_remark = false;
+                }
+            })
+
+            // 按鈕監聽
+            $("#ok-btn").on("click", function () {
+                if (flag_productName && flag_price && flag_category && flag_remark) {
+                    $("#showmsg").removeClass("d-none");
+                    const productName = $("#product-name").val();
+                    const price = $("#price").val();
+                    const num = $("#num").val();
+                    const category = $("#category").val();
+                    const remark = $("#remark").val();
+
+                    const strHTML = `
+                        <div class="card-header"><h2 class="section-title"><i class="fa-solid fa-clipboard-check"></i>產品建檔資料確認</h2></div>
+                        <div class="card-body">
+                            <div class="review-row"><b>產品名稱</b>${productName}</div>
+                            <div class="review-row"><b>產品價格</b><span class="money">GTA$ ${Number(price).toLocaleString("zh-TW")}</span></div>
+                            <div class="review-row"><b>產品數量</b>${num} 件</div>
+                            <div class="review-row"><b>產品分類</b>${category}</div>
+                            <div class="review-row"><b>產品備註</b>${remark}</div>
+                            <button class="btn btn-success w-100 mt-3" id="send-btn"><i class="fa-solid fa-check me-2"></i>確認送出</button>
+                        </div>
+                    `;
+                    $("#showmsg").html(strHTML);
+                } else {
+                    Swal.fire({
+                        title: "欄位錯誤!",
+                        text: "欄位錯誤，請修正",
+                        icon: "error"
+                    });
+                }
+            });
+
+            // (CRUD新增)確認送出 #send-btn
+            // 這個按鈕是showmsg渲染出來、本來沒有，所以要先說明在哪邊(showmsg)，然後再指定是哪個被監聽的物件(send-btn)
+            $("#showmsg").on("click", "#send-btn", function () {
+                // 蒐集欄位資料
+                const productName = $("#product-name").val();
+                const price = $("#price").val();
+                const num = $("#num").val();
+                const category = $("#category").val();
+                const remark = $("#remark").val();
+
+                // 轉成JSON物件，底下寫法要符合後端API的格式，此處參考product.json格式
+                const dataJSON = {
+                    "name": productName,
+                    "category": category,
+                    "price": price,
+                    "num": num,
+                    "remark": remark
+                };
+
+                // 傳送資料到後端API，執行新增動作
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3000/vice_market",
+                    // 預期後端回傳的資料格式
+                    dataType: "json",
+                    // data:要傳給後端什麼資料(dataJSON)，物件(資料)傳送都需要轉成字串
+                    data: JSON.stringify(dataJSON),
+                    // contentType:告訴後端傳過去的格式
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log("POST success");
+                        // 新增成功後，考慮介面流暢度(例如確認送出，要怎麼銜接到第二筆)
+                        Swal.fire({
+                            title: "新增成功!",
+                            text: "產品資料已經建立",
+                            icon: "success"
+                        });
+                        console.log("Swal 已執行");
+
+                        // showmsg關閉
+                        $("#showmsg").addClass("d-none");
+
+                        // 清除設定欄位與驗證樣式
+                        $("#product-name").val("");
+                        $("#price").val(50);
+                        $("#num").val(50)
+                        $("#num-text").text(50)
+                        $("#category").val("");
+                        $("#remark").val("");
+
+                        $("#product-name, #price, #category, #remark").removeClass("is-valid is-invalid");
+
+                        flag_productName = false;
+                        flag_price = true;
+                        flag_category = false;
+                        flag_remark = false
+                    },
+                    error: function () {
+                        Swal.fire({
+                            title: "新增失敗!",
+                            text: "無法連接後端API",
+                            icon: "error"
+                        });
+                    }
+                });
+            })
+        });
+    </script>
+</body>
+
+</html>
